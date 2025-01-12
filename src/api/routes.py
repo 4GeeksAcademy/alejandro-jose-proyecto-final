@@ -10,6 +10,8 @@ import os
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from werkzeug.utils import secure_filename
+import cloudinary.uploader as uploader
+
 
 api = Blueprint('api', __name__)
 app = Flask(__name__)
@@ -101,14 +103,9 @@ def get_games():
     
 @api.route('/submit-game', methods=['POST'])
 def submit_game():
-    # files = request.files
     
-    
-    # if 'cover_image' not in request.files:
-    #     return jsonify({"error": "Cover image is missing"}), 400
-    
-    # cover_file = request.files['cover_image']
-    
+    cover_file = request.files.get("cover_image", None)
+    print(cover_file)
     # # Save the cover media file (if provided)
     # if cover_file and allowed_file(cover_file.filename):
     #     filename = secure_filename(cover_file.filename)
@@ -125,13 +122,12 @@ def submit_game():
     # try:
     game = Game(
     name=data['name'],
-    # cover_image=cover_path,
+    cover_image=cover_file,
     genre=data['genre'],
     modes=data.get('modes', ''),
     release_date=data['release_date'],
     system_requirements=data['system_requirements'],
     achievements=data.get('achievements', ''),
-    # media_files=",".join([secure_filename(f.filename) for f in request.files.getlist('media_files')]),
     rating=data['rating'],
     players=int(data['players']),
     related_games=data.get('related_games', ''),
