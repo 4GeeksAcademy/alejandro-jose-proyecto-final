@@ -7,47 +7,102 @@ import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
 export function GamePreview() {
-    const {store, actions} = useContext(Context)
+    const { store, actions } = useContext(Context)
     const navigate = useNavigate()
-    
-    useEffect(() => {
-        actions.recentGames()
-    }, [])
+    const [relatedGame, setRelatedGame] = useState([])
+    const [loading, setLoading] = useState(true)
 
-    return(
+
+    async function handleComparation() {
+        for (let item of store.recentGames) {
+            let response = await actions.multiQueryGame(item.auto_related_games[0])
+            relatedGame.push(response)
+
+        }
+    }
+
+    useEffect(() => {
+        if (store.recentGames.length == 0) {
+            actions.recentGames()
+        }
+        handleComparation()
+    }, [store.recentGames])
+
+    useEffect(() => {
+        if (relatedGame) {
+            setLoading(false)
+        }
+        console.log(relatedGame)
+    }, [store.recentGames])
+
+    return (
         <div className="container">
-            <div className="row game-preview-row mt-3 ">
+            <div className="row game-preview-row mt-3 d-flex justify-content-center">
                 {
-				store.recentGames.map((item) => {
-					return (
-                        <>
-						<div key={item.id}
-                        className="game-preview col-2 border rounded mx-2 mb-4 p-0 d-flex"
-                        onClick={() => navigate(`/game/${item.id}`)}
-                        >
-                            <img src={item.cover_image} className="game-image border rounded"/>
-                            <div className="tooltip d-flex">
-                                <div className="tooltip-bg pb-2">
-                                    <h5 className="d-flex justify-content-center m-0">{item.name}</h5>
-                                    <span>{item.genre}</span>
-                                    <img src={item.cover_image} className="tooltip-game-image rounded"/>
-                                    <span className="mt-1"><b>Release Date:</b> {item.release_date}</span>
-                                    <br></br>
-                                    <span><b>Rating:</b></span>
-                                </div>
-                                <div className="related-games-tooltip d-flex justify-content-center">
-                                    <div className="related-games-preview">
-                                        <span><b>Related Games</b></span>
-                                    </div>
-                                 </div>
+                    loading ?
+
+                        <div className="d-flex justify-content-center align-items-center">
+                            <div className="spinner-border text-primary" role="status">
+                                <span className="visually-hidden">Loading...</span>
                             </div>
-     
                         </div>
-                        
-                      </>
-					)
-				})
-			    }
+                        :
+                        store.recentGames.map((item, index) => {
+                            return (
+
+                                <div key={item.id}
+                                    className="game-preview col-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2 mx-1 border border-dark mb-4 p-0 d-flex position-relative"
+                                    onClick={() => navigate(`/game/${item.id}`)}
+                                >
+                                    <div className="">
+                                        <div className="flip-card">
+                                            <div className="flip-card-inner border border-secondary">
+                                                <div className="flip-card-front">
+                                                    <img src={item.cover_image} className="game-image" />
+
+                                                </div>
+                                                <div>
+                                                    <img src={item.cover_image} className="game-image" />
+
+                                                </div>
+                                                <div className="flip-card-back d-flex flex-column justify-content-between">
+                                                    <div>
+                                                        <h2>{item.name}</h2>
+                                                        <p>
+                                                            {
+
+                                                                item.genres.split(",").filter((genre, index) => index <= 2).map((genre, index) => {
+                                                                    if ((item.genres.split(",").filter((genre, index) => index <= 2)).length == index + 1) {
+                                                                        return (
+                                                                            genre
+                                                                        )
+                                                                    }
+                                                                    else {
+                                                                        return (
+                                                                            genre + ", "
+                                                                        )
+                                                                    }
+                                                                })
+
+                                                            }
+                                                        </p>
+                                                        <p>{item.summary}</p>
+                                                    </div>
+
+                                                    <div>
+                                                        <p><b>Release date:</b> {item.release_date}</p>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            )
+                        })
+                }
             </div>
         </div>
     )

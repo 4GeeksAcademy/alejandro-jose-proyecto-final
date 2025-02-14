@@ -1,42 +1,256 @@
 /*
     General Styles used on every website (Don't Repeat Yourself)
 */
+
+
 body {
     height: 100px;
-    background-color: rgb(181, 181, 181);
+    background-color: rgb(68, 67, 94);
+    font-family: 'Liter', sans-serif;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed !important;
+    background: linear-gradient(to bottom right, rgb(68, 67, 94), rgb(24, 24, 34));
+    color: rgb(210, 210, 210);
+
 }
+
 .game-preview {
     /* height: 14rem; */
     -webkit-box-shadow: 0px 0px 40px -21px rgba(0,0,0,0.56);
     -moz-box-shadow: 0px 0px 40px -21px rgba(0,0,0,0.56);
     box-shadow: 0px 0px 40px -21px rgba(0,0,0,0.56);
     flex-direction: column;
-    
+    border-radius: 10px;
+
+
 }
+@media (width >= 1400px) {
+    .game-preview {
+        width: 230px;
+    }
+}
+@media (width <= 1400px) {
+    .game-preview {
+        width: 220px;
+    }
+}
+
+/* .game-preview-row {
+    /* padding: 0px 100px; */
+
+.navbar {
+    
+    padding: 10px 100px;
+    color: purple;
+}
+
+.api-suggestions-list {
+    position: absolute;
+    top: 100%;
+    background-color: rgb(87, 86, 114);
+    width: 96%;
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 5px;
+    padding: 0;
+    list-style-type: none;
+    z-index: 10;
+    scrollbar-color: rgb(87, 86, 114) rgb(58, 58, 58);
+    border-radius: 10px;
+}
+.api-suggestions-list li {
+    padding-left: 8px;
+    cursor: pointer;
+}
+.api-suggestions-list li:hover {
+    background-color: rgb(67, 66, 87);
+}
+
+.trailer {
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 100%;
+    max-height: 100%;
+
+}
+.navbar-color {
+    background-color: rgb(187, 24, 232);
+}
+.img-pointer:hover {
+    cursor: pointer;
+}
+
+.api-searchbar {
+    width: 50rem;
+    margin-top: 10px;
+    /* border: 3px solid rgb(62, 62, 70);
+    border-radius: 10px;
+    background-color: rgb(80, 79, 106);
+    margin-top: 10px;
+    color: rgb(44, 41, 58) */
+
+}
+.search-api {
+    position: relative;
+    padding: 14px;
+    align-items: center;
+    background-color: rgb(87, 86, 114);
+    border-radius: 28px;
+}
+
+.icon-api-search {
+    font-size: 25px;
+    margin-right: 14px;
+    color: rgb(39, 39, 39);
+}
+
+.input-api-search {
+    font-size: 20px;
+    outline: none;
+    border: none;
+    background: transparent;
+    color: #333333;
+}
+
+.input-api-search::placeholder {
+    color: #333333;
+
+}
+
+.input-api-search::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
+.api-game-comparation {
+    background-color: rgb(87, 86, 114);
+    border: 3px solid black;
+    border-radius: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+}
+
+.comparation-image-container {
+    width: 200px;
+    height: 314px;
+
+}
+.comparation-image {
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.user-game {
+    width: 300px;
+    height: 412px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.user-images {
+    width: 290px;
+    height: 180px;
+    object-fit: cover;
+    padding: 5px;
+}
+
+.aspect-color {
+    color: rgb(99, 14, 99);
+}
+
+.user-game-color {
+    background-color: rgb(109, 82, 139);
+}
+
+.user-game-p-color {
+    color: rgb(0, 0, 0);
+}
+
+.user-game-rating {
+    color: rgb(176, 176, 176);
+    font-size: 30px;
+    margin-bottom: 5px;
+}
+
 .game-image {
+    left: 0;
+    position: absolute;
     /* max-width: 190px;
     min-width: 190px;
     min-height: 223px;
     max-height: 223px; */
-    max-width: 100%;
-    min-width: 100%;
+    width: 100%;
+    height: 100%;
     /* min-height: 100%;
     max-height: 100%; */
     cursor: pointer;
-}
-.game-preview-row {
-    /* padding: 0px 100px; */
-}
-.navbar-color {
-    background-color: rgb(147, 47, 240);
-}
-.trailer {
-    min-width: 700px;
-    max-width: 700px;
+    object-fit: cover;
+    border-radius: 10px;
+   
+    background-color: transparent;
 
 }
-.navbar-color {
-    background-color: rgb(193, 0, 193);
-}
+/* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
+.flip-card {
+    background-color: transparent;
+    width: 100%;
+    height: 342px;
 
+    perspective: 1000px; /* Remove this if you don't want the 3D effect */
+    border-radius: 10px;
+  }
   
+  /* This container is needed to position the front and back side */
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    border-radius: 10px;
+
+  }
+  
+  /* Do an horizontal flip when you move the mouse over the flip box container */
+  .flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+  
+  /* Position the front and back side */
+  .flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+    border-radius: 10px;
+
+  }
+  
+  /* Style the front side (fallback if image is missing) */
+  .flip-card-front {
+    background-color: #bbb;
+    color: black;
+    border-radius: 10px;
+
+  }
+  
+  /* Style the back side */
+  .flip-card-back {
+    color: white;
+    transform: rotateY(180deg);
+    border-radius: 10px;
+    background-color: #000000c4;
+    cursor: pointer;
+  }
+
+  .img-thumbnail {
+    width: 228px;
+    height: 342px;
+    object-fit: cover;
+  }
